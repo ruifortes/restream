@@ -1,0 +1,23 @@
+{
+	"name": "toy-stream",
+	"namespace": false,
+	"sources": [
+		{"dir": "src", "subdirs" : true},
+    {"dir": "tests", "subdirs": true, "type": "dev" }
+	],
+	"package-specs": {
+		"module": "es6",
+		"in-source": false
+	},
+	"suffix": ".bs.js",
+	"external-stdlib": "@rescript/std",
+	"bs-dependencies": [
+		"@ryyppy/rescript-promise",
+		"rescript-webapi",
+		"rescript-test"
+	],
+  "warnings": {
+    "number": "-33-44-45-102-26-27",
+    "error": "+5"
+  }
+}
