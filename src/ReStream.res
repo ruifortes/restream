@@ -17,7 +17,7 @@ let fromArray = ReStream_Source.fromArray
 // let fetch = ReStream_Fetch.make
 
 // Convert
-// let fromIterable = ReStream_Source_FromIterable.fromIterable
+let fromIterable = ReStream_Source_FromIterable.fromIterable
 let fromWebStreamReadable = ReStream_WebStream.fromWebStreamReadable
 let toWebStreamReadable = ReStream_WebStream.toWebStreamReadable
 

@@ -28,48 +28,48 @@ test("fromArray", () => {
 })
 
 
-// testAsync("fromIterable (sync)", (done) => {
+testAsync("fromIterable (sync)", (done) => {
 
-// 	let iterable = ReStream_Source_FromIterable._castArray([1, 2, 3, 4, 5]) 
+	let iterable = ReStream_Source_FromIterable._castArray([1, 2, 3, 4, 5]) 
 
-// 	S.fromIterable(iterable)
-// 	-> S.collect(res => {
+	S.fromIterable(iterable)
+	-> S.collect(res => {
 
-// 		switch res {
-// 			| Ok(arr) => {
-// 					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
-// 					done()
-// 				}
-// 			| Error(err) => {
-// 					fail()
-// 				}
-// 			}
+		switch res {
+			| Ok(arr) => {
+					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
+					done()
+				}
+			| Error(err) => {
+					fail()
+				}
+			}
 	
-// 	})
+	})
 
-// })
+})
 
 
-// testAsync("fromIterable (async)", (done) => {
+testAsync("fromIterable (async)", (done) => {
 
-// 	let iterable = Test_Utils.asyncIteratorFromArray([1, 2, 3, 4, 5])
+	let iterable = Test_Utils.asyncIteratorFromArray([1, 2, 3, 4, 5])
 
-// 	S.fromIterable(iterable)
-// 	-> S.collect(res => {
+	S.fromIterable(iterable)
+	-> S.collect(res => {
 
-// 		switch res {
-// 			| Ok(arr) => {
-// 					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
-// 					done()
-// 				}
-// 			| Error(err) => {
-// 					fail()
-// 				}
-// 			}
+		switch res {
+			| Ok(arr) => {
+					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
+					done()
+				}
+			| Error(err) => {
+					fail()
+				}
+			}
 	
-// 	})
+	})
 
-// })
+})
 
 
 testAsync("toWebStreamReadable", (done) => {
