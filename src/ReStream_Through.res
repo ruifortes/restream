@@ -72,7 +72,7 @@ let timeout = (src :readable<'a>, max :int) => {
 				| Pull(cb) => {
 						timer := Js.Nullable.return(Js.Global.setTimeout(() => {
 							src(Abort)
-							cb(Error(Failure("timeout exceded")))
+							cb(Error("timeout exceded"))
 						}, max))
 
 						src(Pull(payload => {

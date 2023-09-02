@@ -1,7 +1,7 @@
 type payload<'a> =
 	| Data('a)
 	| End
-	| Error(exn)
+	| Error(string)
 
 type callback<'a> = payload<'a> => unit
 
@@ -39,7 +39,7 @@ let fromArray = (arr :array<'a>) :readable<'a> => {
 
 	}
 
-let error = (err :exn) => {
+let error = (err :string) => {
 	(sig :signal<'a>) => switch sig {
 		| Pull(cb) => cb(Error(err))
 		| Abort => ()

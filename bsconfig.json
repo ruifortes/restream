@@ -9,10 +9,9 @@
 		"module": "es6",
 		"in-source": false
 	},
-	"suffix": ".bs.js",
+	"suffix": ".mjs",
 	"external-stdlib": "@rescript/std",
 	"bs-dependencies": [
-		"@ryyppy/rescript-promise",
 		"rescript-webapi",
 		"rescript-test"
 	],

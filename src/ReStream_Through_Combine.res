@@ -1,6 +1,6 @@
 open ReStream_Source
 
-type sourceStatus<'a> = | Idle(readable<'a>) | Busy | Ended | Erroed(exn)
+type sourceStatus<'a> = | Idle(readable<'a>) | Busy | Ended | Erroed(string)
 
 type combineMode = | Latest | Zip
 

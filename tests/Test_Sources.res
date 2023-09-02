@@ -1,7 +1,5 @@
-// open Js.Promise2
-
 open Test
-
+module Promise = Js.Promise
 module S = ReStream
 
 let testValues = ["A", "B", "C", "D"]
@@ -77,14 +75,14 @@ testAsync("toWebStreamReadable", (done) => {
 	Test_Utils.createAsyncTestSource(testData)
 	-> S.toWebStreamReadable
 	-> Test_Utils.testReadableWebStream
-	-> Promise.then(pass => {
+	-> Promise.then_(pass => {
 			if(pass) {
 				done()
 			} else {
 				fail()
 			}
 			Promise.resolve()
-		})
+		}, _)
 	-> ignore
 
 })

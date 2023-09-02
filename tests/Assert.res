@@ -19,7 +19,7 @@ let arraySameItems = (~message=?, a: array<'a>, b: array<'a>) => {
 		Belt.Array.length(a) == Belt.Array.length(b)
 		&&
 		a -> Belt.Array.every(v1 => {
-			b -> Belt.Array.getBy(v2 => v1 == v2)
+			b -> Belt.Array.getBy(v2 => v1 === v2)
 			-> Belt.Option.isSome
 		})
 		
