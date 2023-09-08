@@ -41,7 +41,7 @@ testAsync("mix, async source, parallel = 10", ~timeout=10000, (done) => {
 					Assert.arraySameItems(~message="result array has same items", arr, testResultData1)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 
@@ -70,7 +70,7 @@ testAsync("mix, sync source, parallel = 10", ~timeout=10000, (done) => {
 					Assert.arraySameItems(~message="result array has same items", arr, testResultData1)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 
@@ -102,7 +102,7 @@ testAsync("mix, parallel = 1", ~timeout=10000, (done) => {
 					Assert.arrayDeepEqual(~message="results should be ordered", arr, testResultData1)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 
@@ -126,7 +126,7 @@ testAsync("flatten (mix with parallel = 1), sync sources", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, ["#A1", "#A2", "#A3", "#B1", "#B2", "#B3","#C1", "#C2", "#C3",])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 

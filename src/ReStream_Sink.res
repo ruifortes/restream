@@ -1,9 +1,9 @@
-module Promise = Js.Promise
+
 exception PromiseError(string)
 
 open ReStream_Source
 
-let drain = (~onEnd :Belt.Result.t<'b, string> => unit = _ => (), src: readable<'a>) => {
+let drain = (~onEnd :Result.t<'b, string> => unit = _ => (), src: readable<'a>) => {
 
 	let ended = ref(false)
 
@@ -11,15 +11,15 @@ let drain = (~onEnd :Belt.Result.t<'b, string> => unit = _ => (), src: readable<
 		switch payload {
 		| Data(v)=> {
 				src(Pull(cb))
-				// Js.Global.setTimeout(() => src(Pull(cb)) ,0) -> ignore
+				// setTimeout(() => src(Pull(cb)) ,0) -> ignore
 			}
 		| End => {
 				if (ended.contents == false) {
 					ended := true
-					onEnd(Ok())
+					onEnd(Result.Ok())
 				}
 			}
-		| Error(err) => onEnd(Error(err))
+		| Error(err) => onEnd(Result.Error(err))
 		}
 	}
 
@@ -40,11 +40,11 @@ let abortableDrain = (~onEnd :Belt.Result.t<'b, string> => unit = _ => (), src: 
 
 
 let drainToPromise = (src: readable<'a>): Promise.t<'b> => {
-	Promise.make((~resolve, ~reject) => {
+	Promise.make((resolve, reject) => {
 		drain(src, ~onEnd = ret => {
 			switch ret {
-				| Belt.Result.Ok(_unit) => resolve(. _unit)
-				| Belt.Result.Error(err) => reject(. PromiseError(err))
+				| Result.Ok(_unit) => resolve(. _unit)
+				| Result.Error(err) => reject(. PromiseError(err))
 			}
 		})
 		-> ignore
@@ -52,24 +52,26 @@ let drainToPromise = (src: readable<'a>): Promise.t<'b> => {
 }
 
 
-let collect = (src: readable<'a>, cb: Belt.Result.t<array<'a>, string> => unit): unit => {
+let collect = (src: readable<'a>, cb: Result.t<array<'a>, string> => unit): unit => {
+
+	let values = []
+
 	src
-	-> ReStream_Group.make(0)
-	-> ReStream_Through.tap(arr => Belt.Result.Ok(arr) -> cb)
+	-> ReStream_Through.tap(v => values -> Array.push(v))
 	-> drain(~onEnd = res => switch res {
-			| Error(err) => Belt.Result.Error(err) -> cb
-			| _ => () 
+			| Error(err) => Result.Error(err) -> cb
+			| Ok() => Result.Ok(values) -> cb
 		})
 	-> ignore
 }
 
 
 let collectToPromise = (src: readable<'a>) :Promise.t<array<'a>> => {
-	Promise.make((~resolve, ~reject) => {	
+	Promise.make((resolve, reject) => {	
 		collect(src, ret => {
 			switch ret {
-				| Belt.Result.Ok(ret) => resolve(. ret)
-				| Belt.Result.Error(err) => reject(. PromiseError(err))
+				| Result.Ok(ret) => resolve(. ret)
+				| Result.Error(err) => reject(. PromiseError(err))
 			}
 		})
 	})

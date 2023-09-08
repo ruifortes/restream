@@ -21,7 +21,7 @@ let single = (value :'a) => {
 	}
 
 let fromArray = (arr :array<'a>) :readable<'a> => {
-	let count = Js.Array.length(arr)
+	let count = Array.length(arr)
 	let currIndex = ref(0)
 
 	(sig :signal<'a>) => {
@@ -29,7 +29,11 @@ let fromArray = (arr :array<'a>) :readable<'a> => {
 		switch sig {
 			| Pull(cb) when i < count => {
 					currIndex := i + 1
-					cb(Data(arr[i]))
+					switch arr[i] {
+						| Some(val) => cb(Data(val))
+						| None => ()
+					}
+					
 				}
 			| Pull(cb) => cb(End)
 			| Abort => currIndex := count
@@ -45,10 +49,3 @@ let error = (err :string) => {
 		| Abort => ()
 		}
 	}
-
-// let error = (err :string) => {
-// 	(sig :signal<'a>) => switch sig {
-// 		| Pull(cb) => cb(Error(err))
-// 		| Abort => ()
-// 		}
-// 	}

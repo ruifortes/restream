@@ -62,18 +62,23 @@ let testReadableWebStream = %raw(`
 
 let createAsyncTestSource = (arr :array<('a, int)>) => {
 
-	let values = arr -> Belt.Array.map(((v, _)) => v)
-	let delays = arr -> Belt.Array.map(((_, d)) => d)
+	let values = arr -> Array.map(((v, _)) => v)
+	let delays = arr -> Array.map(((_, d)) => d)
 	
 	let index = ref(-1)
 
 	S.fromArray(values)
-	-> S.asyncMap((v, cb) => {
+	-> S.asyncMap((val, cb) => {
 		let i = ReStream_Utils.incrementRef(index)
-		Js.Global.setTimeout(() => {
-			cb(values[i])
-		}, delays[i])
-		-> ignore
+		switch delays[i] {
+			| Some(delay) => {
+					setTimeout(() => {
+						cb(val)
+					}, delay)
+					-> ignore
+				}
+			| _ => ()
+		}
 	})
 
 }

@@ -1,5 +1,3 @@
-module Promise = Js.Promise
-
 type _iterable<'a>
 type _iterator<'a> = unit => Promise.t<('a, bool)>
 
@@ -32,7 +30,7 @@ let fromIterable = (iterable: _iterable<'a>) :ReStream_Source.readable<'a> => {
 		| Pull(cb) when done.contents => cb(End)
 		| Pull(cb) => {
 				iterator()
-				-> Promise.then_(((value, _done)) => {
+				-> Promise.then(((value, _done)) => {
 					if(_done) {
 						done := true
 						cb(End)
@@ -40,11 +38,11 @@ let fromIterable = (iterable: _iterable<'a>) :ReStream_Source.readable<'a> => {
 						cb(Data(value))
 					}
 					Promise.resolve()
-				}, _)
+				})
 				-> Promise.catch(err => {
-					cb(Error(Js.String.make(err)))
+					cb(Error(String.make(err)))
 					Promise.resolve()
-				}, _)
+				})
 				-> ignore
 			}
 		| Abort => {

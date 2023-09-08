@@ -28,7 +28,7 @@ testAsync("filterMap", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, [12, 14, 16, 18, 20])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 

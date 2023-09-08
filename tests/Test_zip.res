@@ -57,12 +57,10 @@ testAsync("zip2", (done) => {
 	-> S.log
 	-> S.collect(res => {
 		switch res {
-			| Ok(arr) => {
+			| Ok(_) => {
 					done()
 				}
-			| Error(err) => {
-					fail()
-				}
+			| Error(_) => fail()
 			}
 		})
 
@@ -77,12 +75,10 @@ testAsync("zip3", (done) => {
 	-> S.log
 	-> S.collect(res => {
 		switch res {
-			| Ok(arr) => {
+			| Ok(_) => {
 					done()
 				}
-			| Error(err) => {
-					fail()
-				}
+			| Error(_) => fail()
 			}
 		})
 
@@ -94,15 +90,13 @@ testAsync("zip4", (done) => {
 	let (src1, src2, src3, src4, _, _) = createSources()
 
 	S.zip4(src1, src2, src3, src4)
-	-> S.log
+	// -> S.log
 	-> S.collect(res => {
 		switch res {
-			| Ok(arr) => {
+			| Ok(_) => {
 					done()
 				}
-			| Error(err) => {
-					fail()
-				}
+			| Error(_) => fail()
 			}
 		})
 
@@ -114,15 +108,13 @@ testAsync("zip5", (done) => {
 	let (src1, src2, src3, src4, src5, _) = createSources()
 
 	S.zip5(src1, src2, src3, src4, src5)
-	-> S.log
+	// -> S.log
 	-> S.collect(res => {
 		switch res {
-			| Ok(arr) => {
+			| Ok(_) => {
 					done()
 				}
-			| Error(err) => {
-					fail()
-				}
+			| Error(_) => fail()
 			}
 		})
 
@@ -133,18 +125,17 @@ testAsync("zip6", (done) => {
 	let (src1, src2, src3, src4, src5, src6) = createSources()
 
 	S.zip6(src1, src2, src3, src4, src5, src6)
-	-> S.log
+	// -> S.log
 	-> S.collect(res => {
 		switch res {
-			| Ok(arr) => {
+			| Ok(_) => {
 					// let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
 					// Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					// Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
-					fail()
-				}
+			| Error(_) => fail()
+				
 			}
 		})
 

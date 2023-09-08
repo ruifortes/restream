@@ -23,8 +23,10 @@ testAsync("paramap, async source, keepOrder=false, parallel = 10", ~timeout=1000
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = false, (val, cb) => {
 			let newValue = "#" ++ Js.Int.toString(val)
-			let delay = delays[ReStream_Utils.incrementRef(i)]
-			let _ = Js.Global.setTimeout(() => cb(newValue), delay)
+			switch delays[ReStream_Utils.incrementRef(i)] {
+				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| None => ()
+			}
 	}, 10)
 	// -> S.log
 	-> S.collect(res => {
@@ -35,7 +37,7 @@ testAsync("paramap, async source, keepOrder=false, parallel = 10", ~timeout=1000
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -53,8 +55,10 @@ testAsync("paramap, async source, keepOrder=false, parallel = 1", ~timeout=10000
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = false, (val, cb) => {
 			let newValue = "#" ++ Js.Int.toString(val)
-			let delay = delays[ReStream_Utils.incrementRef(i)]
-			let _ = Js.Global.setTimeout(() => cb(newValue), delay)
+			switch delays[ReStream_Utils.incrementRef(i)] {
+				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| None => ()
+			}
 	}, 1)
 	// -> S.log
 	-> S.collect(res => {
@@ -65,7 +69,7 @@ testAsync("paramap, async source, keepOrder=false, parallel = 1", ~timeout=10000
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -83,8 +87,10 @@ testAsync("paramap, async source, keepOrder=true, parallel = 10", ~timeout=10000
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
 			let newValue = "#" ++ Js.Int.toString(val)
-			let delay = delays[ReStream_Utils.incrementRef(i)]
-			let _ = Js.Global.setTimeout(() => cb(newValue), delay)
+			switch delays[ReStream_Utils.incrementRef(i)] {
+				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| None => ()
+			}
 	}, 10)
 	// -> S.log
 	-> S.collect(res => {
@@ -95,7 +101,7 @@ testAsync("paramap, async source, keepOrder=true, parallel = 10", ~timeout=10000
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -113,8 +119,10 @@ testAsync("paramap, sync source, keepOrder=false, parallel = 10", (done) => {
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = false, (val, cb) => {
 			let newValue = "#" ++ Js.Int.toString(val)
-			let delay = delays[ReStream_Utils.incrementRef(i)]
-			let _ = Js.Global.setTimeout(() => cb(newValue), delay)
+			switch delays[ReStream_Utils.incrementRef(i)] {
+				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| None => ()
+			}
 	}, 10)
 	// -> S.log
 	-> S.collect(res => {
@@ -125,7 +133,7 @@ testAsync("paramap, sync source, keepOrder=false, parallel = 10", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -143,8 +151,10 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 10", (done) => {
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
 			let newValue = "#" ++ Js.Int.toString(val)
-			let delay = delays[ReStream_Utils.incrementRef(i)]
-			let _ = Js.Global.setTimeout(() => cb(newValue), delay)
+			switch delays[ReStream_Utils.incrementRef(i)] {
+				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| None => ()
+			}
 	}, 10)
 	-> S.collect(res => {
 		switch res {
@@ -154,7 +164,7 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 10", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -172,8 +182,10 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 1", (done) => {
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
 			let newValue = "#" ++ Js.Int.toString(val)
-			let delay = delays[ReStream_Utils.incrementRef(i)]
-			let _ = Js.Global.setTimeout(() => cb(newValue), delay)
+			switch delays[ReStream_Utils.incrementRef(i)] {
+				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| None => ()
+			}
 	}, 1)
 	-> S.collect(res => {
 		switch res {
@@ -183,7 +195,7 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 1", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -192,7 +204,7 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 1", (done) => {
 })
 
 testAsync("paramap, sync source, immediate response, keepOrder=false", (done) => {
-	let i = ref(-1)
+
 	let fail1 = ref(false)
 
 	S.fromArray([1, 2, 3, 4, 5, 6, 7])
@@ -209,7 +221,7 @@ testAsync("paramap, sync source, immediate response, keepOrder=false", (done) =>
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}

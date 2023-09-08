@@ -7,10 +7,19 @@ let intEqual = (~message=?, a: int, b: int) =>
 	assertion(~message?, ~operator="bool equal", (a, b) => a === b, a, b)
 
 let arrayDeepEqual = (~message=?, a: array<'a>, b: array<'a>) => {
-
 	let comparator = (a, b) => Belt.Array.eq(a, b, (a, b) => a === b)
-		
 	assertion(~message?, ~operator="Array Deep Equal", comparator, a, b)
+}
+
+let arrayOfArraysDeepEqual = (~message=?, a: array<array<'a>>, b: array<array<'a>>) => {
+
+	let comparator = (a, b) => {
+			Belt.Array.eq(a, b, (a, b) => {
+				Belt.Array.eq(a, b, (a, b) => a === b)
+			})
+		}
+
+	assertion(~message?, ~operator="Array of Arrays Deep Equal", comparator, a, b)
 	
 }
 
@@ -19,7 +28,7 @@ let arraySameItems = (~message=?, a: array<'a>, b: array<'a>) => {
 		Belt.Array.length(a) == Belt.Array.length(b)
 		&&
 		a -> Belt.Array.every(v1 => {
-			b -> Belt.Array.getBy(v2 => v1 === v2)
+			b -> Belt.Array.getBy(v2 => v1 == v2)
 			-> Belt.Option.isSome
 		})
 		

@@ -1,6 +1,5 @@
 // [Web Streams API | Node.js v16.5.0 Documentation](https://nodejs.org/api/webstreams.html#webstreams_new_readablestream_underlyingsource_strategy)
 // [ReadableStream - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
-module Promise = Js.Promise
 
 type _reader<'a>
 type _payload<'a> = {
@@ -10,7 +9,7 @@ type _payload<'a> = {
 
 type _controller<'a>
 type _underlyingSource<'a> = {
-	pull :_controller<'a> => Promise.t<Js.undefined<unit>>,
+	pull :_controller<'a> => Promise.t<undefined<unit>>,
 	cancel :string => unit
 }
 
@@ -31,18 +30,18 @@ let fromWebStreamReadable = (readable :Webapi.ReadableStream.t) :ReStream_Source
 		switch sig {
 			| Pull(cb) => {
 				_read(reader)
-				-> Promise.then_(({done, value}) => {
+				-> Promise.then(({done, value}) => {
 						if (done) {
 							cb(End)
 						} else {
 							cb(Data(value))
 						}
 						Promise.resolve()
-					}, _)
+					})
 				-> Promise.catch(err => {
-						cb(Error(Js.String.make(err)))
+						cb(Error(String.make(err)))
 						Promise.resolve()
-					}, _)
+					})
 				-> ignore
 			}
 			| Abort => {
@@ -56,7 +55,7 @@ let fromWebStreamReadable = (readable :Webapi.ReadableStream.t) :ReStream_Source
 let toWebStreamReadable = (src :ReStream_Source.readable<'a>) :Webapi.ReadableStream.t => {
 
 	let push = controller => {
-		Promise.make((~resolve, ~reject) => {	
+		Promise.make((resolve, _) => {	
 			src(Pull(payload => {
 				switch payload {
 					| Data(val) => controller -> _callEnqueue(val)
@@ -70,7 +69,7 @@ let toWebStreamReadable = (src :ReStream_Source.readable<'a>) :Webapi.ReadableSt
 
 	let webStream = _makeReadableStream({
 		pull: push,
-		cancel: reason => src(Abort)
+		cancel: _ => src(Abort)
 	})
 
 	webStream

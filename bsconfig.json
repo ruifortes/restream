@@ -1,6 +1,5 @@
 {
 	"name": "toy-stream",
-	"namespace": false,
 	"sources": [
 		{"dir": "src", "subdirs" : true},
     {"dir": "tests", "subdirs": true, "type": "dev" }
@@ -10,11 +9,12 @@
 		"in-source": false
 	},
 	"suffix": ".mjs",
-	"external-stdlib": "@rescript/std",
 	"bs-dependencies": [
+		"@rescript/core",
 		"rescript-webapi",
 		"rescript-test"
 	],
+	"bsc-flags": ["-open RescriptCore"],
   "warnings": {
     "number": "-33-44-45-102-26-27",
     "error": "+5"

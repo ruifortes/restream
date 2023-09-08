@@ -16,7 +16,7 @@ testAsync("flatMap", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, [1,2,2,3,3,3])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 
@@ -36,7 +36,7 @@ testAsync("asyncFlatMap", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, [1,2,2,3,3,3])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 

@@ -38,7 +38,7 @@ testAsync("buffer", (done) => {
 					// Assert.arraySameItems(~message="result array has same items", arr, result)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 

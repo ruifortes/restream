@@ -1,5 +1,20 @@
 open ReStream_Source
 
+let through = (src :readable<'a>) :readable<'a> => {
+	(sig :signal<'a>) => {
+
+		switch sig {
+			| Pull(cb) => {
+					src(Pull(payload => {
+						Js.log2("log:", payload)
+						cb(payload)
+					}))
+				}
+			| Abort => src(Abort)
+			}
+		}	
+}
+
 let tap = (src :readable<'a>, fn :'a => unit) :readable<'a> => {
 	src -> ReStream_Transform.map((val :'a) :'a => {
 		fn(val)
@@ -7,12 +22,7 @@ let tap = (src :readable<'a>, fn :'a => unit) :readable<'a> => {
 	})
 }
 
-let log = tap(_ , x => Js.log(x))
-
-// let log = src => src -> ReStream_Transform.map(v => {
-// 	Js.log(v)
-// 	v
-// })
+let log = tap(_ , x => Console.log(x))
 
 let take = (src :readable<'a>, max :int) => {
 	let counter = ref(0)
@@ -65,18 +75,21 @@ let abortable = () => {
 
 
 let timeout = (src :readable<'a>, max :int) => {
-		let timer = ref(Js.Nullable.null)
+		let timerId = ref(None)
 
 		(sig :signal<'a>) => {
 			switch sig {
 				| Pull(cb) => {
-						timer := Js.Nullable.return(Js.Global.setTimeout(() => {
+						timerId := Some(setTimeout(() => {
 							src(Abort)
 							cb(Error("timeout exceded"))
 						}, max))
 
 						src(Pull(payload => {
-							Js.Nullable.iter(timer.contents, (. timer) => Js.Global.clearTimeout(timer))
+							switch timerId.contents {
+								| Some(id) => clearTimeout(id)
+								| None => ()
+							}
 							cb(payload)
 						}))
 					}

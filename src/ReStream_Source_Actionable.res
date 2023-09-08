@@ -42,7 +42,7 @@ let make = () :(ReStream_Source.readable<'a>, actionable<'a>) => {
 							}
 						}
 				}
-			|	Abort => Js.log("TODO")
+			|	Abort => Console.log("TODO")
 		}
 	}
 

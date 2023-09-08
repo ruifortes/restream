@@ -25,7 +25,7 @@ testAsync("abortable, not aborting", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, ["#1", "#2", "#3", "#4"])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 
@@ -54,7 +54,7 @@ testAsync("abortable, aborting", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, ["#1", "#2", "#3", "#4"])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 

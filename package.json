@@ -1,16 +1,14 @@
 {
 	"name": "toy-stream",
 	"scripts": {
-		"build": "node ./node_modules/rescript/rescript build",
-		"watch": "node ./node_modules/rescript/rescript build -with-deps -w",
-		"clean": "node ./node_modules/rescript/rescript clean",
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:dev": "rescript build -w",
 		"test": "retest ./lib/es6/tests/*.mjs"
 	},
-	"devDependencies": {
-		"rescript": "^11.0.0-rc.2"
-	},
 	"dependencies": {
-		"@rescript/std": "^10.1.4",
+		"@rescript/core": "^0.5.0",
+		"rescript": "^10.1.4",
 		"rescript-test": "^5.0.0",
 		"rescript-webapi": "^0.9.0"
 	}

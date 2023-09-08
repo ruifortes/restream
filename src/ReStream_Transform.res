@@ -1,5 +1,4 @@
 open ReStream_Source
-module Promise = Js.Promise
 
 let map = (src :readable<'a>, mapper :'a => 'b) :readable<'b> => {
 
@@ -50,14 +49,14 @@ let promiseMap = (src :readable<'a>, mapper : 'a => Promise.t<'b>) :readable<'b>
 				switch payload {
 					| Data(v) => {
 							let _ = mapper(v)
-							-> Promise.then_(ret => {
+							-> Promise.then(ret => {
 									cb(Data(ret))
 									Promise.resolve()
-								}, _)
+								})
 							-> Promise.catch(err => {
-									cb(Error(Js.String.make(err)))
+									cb(Error(String.make(err)))
 									Promise.resolve()
-								}, _)
+								})
 						}
 					| End => cb(End)
 					| Error(err) => cb(Error(err))

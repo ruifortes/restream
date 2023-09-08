@@ -13,8 +13,8 @@ let checkStep = (src :readable<'a>, onError: unit => unit) :readable<'a> => {
 	(sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => {
-					if(pendingCallback.contents -> Js.Option.isSome) {
-						Js.log("calling pull before response....")
+					if(pendingCallback.contents -> Option.isSome) {
+						Console.log("calling pull before response....")
 						onError()
 					}
 					pendingCallback := Some(cb)

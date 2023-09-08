@@ -12,7 +12,7 @@ let make = (src: readable<'a>, src2: readable<unit>) :readable<array<'a>> => {
 
 			switch payload {
 				| Data(val) => {
-						Js.Array2.push(arr, val) -> ignore
+						Array.push(arr, val)
 						if(refPack.contents) {
 							refPack := false
 							refArr := []
@@ -23,7 +23,7 @@ let make = (src: readable<'a>, src2: readable<unit>) :readable<array<'a>> => {
 					}
 				| End => {
 						refDone := true
-						if(Js.Array.length(arr) == 0) {
+						if(Array.length(arr) == 0) {
 							cb(End)
 						} else {
 							cb(Data(arr))

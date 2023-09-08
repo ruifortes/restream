@@ -27,7 +27,10 @@ let log = ReStream_Through.log
 let take = ReStream_Through.take
 let tap = ReStream_Through.tap
 // let through = ReStream_Through.through
+let debounce = ReStream_Debounce.make
+let throttle = ReStream_Throttle.make
 let timeout = ReStream_Through.timeout
+
 
 let asyncFilter = ReStream_Filter.makeAsync
 let filter = ReStream_Filter.makeSync

@@ -21,7 +21,6 @@ testAsync("observable", (done) => {
 				switch pl {
 					| Data(val) => {
 						arr -> Js.Array2.push(val) -> ignore
-						// Js.log3(id, "---->", val)
 					}
 					| _ => ()
 				}
@@ -69,7 +68,7 @@ testAsync("observable", (done) => {
 
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 

@@ -11,7 +11,8 @@ let make = (src :readable<'a>, size :int) :readable<array<'a>> => {
 
 			switch payload {
 				| Data(val) => {
-						let len = Js.Array2.push(arr, val)
+						Array.push(arr, val)
+						let len = Array.length(arr)
 						if(size == 0 || len < size) {
 							getNext(cb)
 						} else {
@@ -21,7 +22,7 @@ let make = (src :readable<'a>, size :int) :readable<array<'a>> => {
 					}
 				| End => {
 						refDone := true
-						if(Js.Array.length(arr) == 0) {
+						if(Array.length(arr) == 0) {
 							cb(End)
 						} else {
 							cb(Data(arr))
@@ -37,7 +38,7 @@ let make = (src :readable<'a>, size :int) :readable<array<'a>> => {
 
 	(sig :signal<array<'a>>) => {
 		switch sig {
-			| Pull(cb) when refDone.contents => cb(End)
+			// | Pull(cb) when refDone.contents => cb(End)
 			| Pull(cb) => getNext(cb)
 			| Abort => src(Abort)
 			}

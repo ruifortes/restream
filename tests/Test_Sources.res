@@ -7,7 +7,6 @@ let testDelays = [300, 200, 100, 10]
 let testData = Belt.Array.zip(testValues, testDelays)
 
 test("fromArray", () => {
-	let initialArray = [1, 2, 3, 4, 5]
 
 	S.fromArray([1, 2, 3, 4, 5])
 	-> S.collect(res => {
@@ -16,7 +15,7 @@ test("fromArray", () => {
 			| Ok(arr) => {
 					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}		
@@ -38,7 +37,7 @@ testAsync("fromIterable (sync)", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -60,7 +59,7 @@ testAsync("fromIterable (async)", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, [1, 2, 3, 4, 5])
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}
@@ -100,7 +99,7 @@ testAsync("fromWebStreamReadable", (done) => {
 					Assert.arrayDeepEqual(~message="results match", arr, ["A", "B", "C", "D"])
 					done()
 				}
-			| Error(err) => {
+			| Error(_) => {
 					fail()
 				}
 			}

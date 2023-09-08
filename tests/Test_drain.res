@@ -21,7 +21,7 @@ testAsync("drain, sync", (done) => {
 					Assert.arrayDeepEqual(~message="results match", testArr, arr2)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 		}
 	})
 
@@ -44,7 +44,7 @@ testAsync("drain, async", (done) => {
 					Assert.arrayDeepEqual(~message="results match", testArr, arr2)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 		}
 	})
 
@@ -68,7 +68,7 @@ testAsync("abortableDrain", (done) => {
 					Assert.arrayDeepEqual(~message="results match", testArr, ["#1", "#2", "#3", "#4"])
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 		}
 	})
  

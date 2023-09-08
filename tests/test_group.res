@@ -27,10 +27,10 @@ testAsync("group", (done) => {
 		switch res {
 			| Ok(arr) => {
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
-					Assert.arraySameItems(~message="result array has same items", arr, result)
+					Assert.arrayOfArraysDeepEqual(~message="result matches", arr, result)
 					done()
 				}
-			| Error(err) => fail()
+			| Error(_) => fail()
 			}
 		})
 
