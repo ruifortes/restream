@@ -31,11 +31,13 @@ let make = (src :readable<'a>, delay: int) :readable<'a> => {
 		}
 	}
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => getNext(cb)
 			| Abort => src(Abort)	
 			}
 	}
+
+	readable
 
 }

@@ -41,12 +41,14 @@ let make = (src: readable<'a>, src2: readable<unit>) :readable<array<'a>> => {
 	-> ReStream_Through.tap(_ => refPack := true)
 	-> ReStream_Sink.drain
 
-	(sig :signal<array<'a>>) => {
+	let readable = (sig :signal<array<'a>>) => {
 		switch sig {
 			| Pull(cb) when refDone.contents => cb(End)
 			| Pull(cb) => getNext(cb)
 			| Abort => src(Abort)
 			}
-		}	
+		}
+
+	readable
 
 }

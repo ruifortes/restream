@@ -36,12 +36,14 @@ let make = (src :readable<'a>, size :int) :readable<array<'a>> => {
 		}))
 	}
 
-	(sig :signal<array<'a>>) => {
+	let readable = (sig :signal<array<'a>>) => {
 		switch sig {
-			// | Pull(cb) when refDone.contents => cb(End)
+			| Pull(cb) when refDone.contents => cb(End)
 			| Pull(cb) => getNext(cb)
 			| Abort => src(Abort)
 			}
-		}	
+		}
+
+	readable
 
 }

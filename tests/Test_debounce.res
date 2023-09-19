@@ -17,10 +17,10 @@ let testData_A = [
 
 testAsync("debounce", ~timeout=15000, (done) => {
 
-	Console.time("timer2")
+	// Console.time("timer2")
 
 	Test_Utils.createAsyncTestSource(testData_A)
-	-> S.tap(v => Console.timeLog("timer2"))
+	// -> S.tap(v => Console.timeLog("timer2"))
 	-> S.debounce(500)
 	-> S.log
 	// -> S.filter(v => mod(v, 2) == 0)

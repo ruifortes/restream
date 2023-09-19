@@ -9,10 +9,7 @@ let drain = (~onEnd :Result.t<'b, string> => unit = _ => (), src: readable<'a>) 
 
 	let rec cb = (payload: payload<'a>) => {
 		switch payload {
-		| Data(v)=> {
-				src(Pull(cb))
-				// setTimeout(() => src(Pull(cb)) ,0) -> ignore
-			}
+		| Data(v)=> src(Pull(cb))
 		| End => {
 				if (ended.contents == false) {
 					ended := true
@@ -29,13 +26,9 @@ let drain = (~onEnd :Result.t<'b, string> => unit = _ => (), src: readable<'a>) 
 
 
 let abortableDrain = (~onEnd :Belt.Result.t<'b, string> => unit = _ => (), src: readable<'a>) => {
-
 	let (abortable, abort) = ReStream_Through.abortable()
-
 	src -> abortable -> drain(~onEnd)
-
 	abort
-
 }
 
 
@@ -47,7 +40,6 @@ let drainToPromise = (src: readable<'a>): Promise.t<'b> => {
 				| Result.Error(err) => reject(. PromiseError(err))
 			}
 		})
-		-> ignore
 	})
 }
 
@@ -62,7 +54,7 @@ let collect = (src: readable<'a>, cb: Result.t<array<'a>, string> => unit): unit
 			| Error(err) => Result.Error(err) -> cb
 			| Ok() => Result.Ok(values) -> cb
 		})
-	-> ignore
+		
 }
 
 

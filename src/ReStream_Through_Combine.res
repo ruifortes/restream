@@ -122,7 +122,7 @@ let make2 = (~mode: combineMode = Latest, src1: readable<'a>, src2: readable<'b>
 	}
 
 
-	(sig: ReStream_Source.signal<('a, 'b)>) => {
+	let readable = (sig: ReStream_Source.signal<('a, 'b)>) => {
 
 		switch sig {
 			| Pull(cb) => {
@@ -139,6 +139,7 @@ let make2 = (~mode: combineMode = Latest, src1: readable<'a>, src2: readable<'b>
 			}
 		}	
 
+	readable
 }
 
 
@@ -292,7 +293,7 @@ let make3 = (~mode = Latest, src1: readable<'a>, src2: readable<'b>, src3: reada
 
 	}
 
-	(sig: ReStream_Source.signal<('a, 'b, 'c)>) => {
+	let readable = (sig: ReStream_Source.signal<('a, 'b, 'c)>) => {
 
 		switch sig {
 			| Pull(cb) => {
@@ -310,6 +311,8 @@ let make3 = (~mode = Latest, src1: readable<'a>, src2: readable<'b>, src3: reada
 			}
 		}
 
+	readable
+
 }
 
 
@@ -319,7 +322,7 @@ let make4 = (~mode = Latest, src1: readable<'a>, src2: readable<'b>, src3: reada
 	let srcB = make2(~mode, src3, src4)
 
 	make2(~mode, srcA, srcB)
-	-> ReStream_Transform.map((((a, b), (c, d))) => {
+	-> ReStream_Transform_Map.makeSync((((a, b), (c, d))) => {
 		(a, b, c, d)
 	})
 
@@ -332,7 +335,7 @@ let make5 = (~mode = Latest, src1, src2, src3, src4, src5) :readable<('a, 'b, 'c
 	let srcB = make3(~mode, src3, src4, src5)
 
 	make2(~mode, srcA, srcB)
-	-> ReStream_Transform.map((((a, b), (c, d, e))) => {
+	-> ReStream_Transform_Map.makeSync((((a, b), (c, d, e))) => {
 		(a, b, c, d, e)
 	})
 
@@ -345,7 +348,7 @@ let make6 = (~mode = Latest, src1, src2, src3, src4, src5, src6) :readable<('a, 
 	let srcB = make3(~mode, src4, src5, src6)
 
 	make2(~mode, srcA, srcB)
-	-> ReStream_Transform.map((((a, b, c), (d, e, f))) => {
+	-> ReStream_Transform_Map.makeSync((((a, b, c), (d, e, f))) => {
 		(a, b, c, d, e, f)
 	})
 

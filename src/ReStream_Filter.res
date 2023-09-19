@@ -15,13 +15,14 @@ let makeSync = (src :readable<'a>, test :'a => bool) :readable<'a> => {
 			))
 
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => getNext(payload => cb(payload))
 			| Abort => src(Abort)
 			}
 		}	
 
+	readable
 }
 
 
@@ -44,12 +45,14 @@ let makeAsync = (src :readable<'a>, tester :('a, bool => unit) => unit) :readabl
 			))
 
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => getNext(payload => cb(payload))
 			| Abort => src(Abort)
 			}
-		}	
+		}
+
+	readable
 
 }
 
@@ -69,12 +72,14 @@ let makeSyncFilterMap = (src :readable<'a>, test :'a => option<'b>) :readable<'b
 			))
 
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => getNext(payload => cb(payload))
 			| Abort => src(Abort)
 			}
 		}
+
+	readable
 
 }
 
@@ -97,12 +102,14 @@ let makeAsyncFilterMap = (src :readable<'a>, mapper :('a, option<'b> => unit) =>
 			))
 
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => getNext(payload => cb(payload))
 			| Abort => src(Abort)
 			}
 		}	
 
+	readable
+	
 }
 

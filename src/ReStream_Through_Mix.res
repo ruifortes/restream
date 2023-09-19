@@ -105,7 +105,7 @@ let make = (~parallel = 10, source :t<t<'a>>) :t<'a> => {
 
 	}
 
-	(sig :ReStream_Source.signal<'a>) => {
+	let readable = (sig :ReStream_Source.signal<'a>) => {
 		if(!ended.contents) {
 
 			switch sig {
@@ -122,6 +122,8 @@ let make = (~parallel = 10, source :t<t<'a>>) :t<'a> => {
 		}
 
 	}
+
+	readable
 
 }
 

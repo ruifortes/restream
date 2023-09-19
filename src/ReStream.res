@@ -55,13 +55,13 @@ let zip4 = (src1, src2, src3, src4) => ReStream_Through_Combine.make4(~mode = Zi
 let zip5 = (src1, src2, src3, src4, src5) => ReStream_Through_Combine.make5(~mode = Zip, src1, src2, src3, src4, src5)
 let zip6 = (src1, src2, src3, src4, src5, sr6) => ReStream_Through_Combine.make6(~mode = Zip, src1, src2, src3, src4, src5, sr6)
 
-let map = ReStream_Transform.map
-let asyncMap = ReStream_Transform.asyncMap
+let map = ReStream_Transform_Map.makeSync
+let asyncMap = ReStream_Transform_Map.makeAsync
+let promiseMap = ReStream_Transform_Map.makeAsyncPromised
 
 let flatMap = ReStream_FlatMap.makeSync
 let asyncFlatMap = ReStream_FlatMap.makeAsync
 
-let promiseMap = ReStream_Transform.promiseMap
 let paraMap = ReStream_Through_ParaMap.make
 
 let mix = ReStream_Through_Mix.make

@@ -22,7 +22,7 @@ let make = () => {
 
 	let through = (src :readable<'a>) => {
 		
-		(sig :signal<'a>) => {
+		let readable = (sig :signal<'a>) => {
 			switch sig {
 				| Pull(cb) => src(Pull(payload => {
 
@@ -35,8 +35,10 @@ let make = () => {
 					}))
 				| Abort => src(Abort)
 				}
-			}
 		}
+
+		readable
+	}
 
 	(through, observe: callback<'a> => removeObserver)
 

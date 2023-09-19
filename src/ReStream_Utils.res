@@ -10,7 +10,7 @@ let checkStep = (src :readable<'a>, onError: unit => unit) :readable<'a> => {
 
 	let pendingCallback: ref<option<callback<'a>>> = ref(None)
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		switch sig {
 			| Pull(cb) => {
 					if(pendingCallback.contents -> Option.isSome) {
@@ -27,5 +27,5 @@ let checkStep = (src :readable<'a>, onError: unit => unit) :readable<'a> => {
 			}
 		}
 
-
+	readable
 }

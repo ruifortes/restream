@@ -1,8 +1,8 @@
 open ReStream_Source
 
-let map = (src :readable<'a>, mapper :'a => 'b) :readable<'b> => {
+let makeSync = (src :readable<'a>, mapper :'a => 'b) :readable<'b> => {
 
-	(sig :signal<'b>) => {
+	let readable = (sig :signal<'b>) => {
 		switch sig {
 			| Pull(cb) => src(Pull(payload =>
 				switch payload {
@@ -15,12 +15,14 @@ let map = (src :readable<'a>, mapper :'a => 'b) :readable<'b> => {
 			}
 		}
 
+	readable
+
 }
 
 
-let asyncMap = (src :readable<'a>, mapper :('a, 'b => unit) => unit) :readable<'b> => {
+let makeAsync = (src :readable<'a>, mapper :('a, 'b => unit) => unit) :readable<'b> => {
 
-	(sig :signal<'b>) => {
+	let readable = (sig :signal<'b>) => {
 		switch sig {
 			| Pull(cb) => {
 				src(Pull(payload => 
@@ -39,11 +41,13 @@ let asyncMap = (src :readable<'a>, mapper :('a, 'b => unit) => unit) :readable<'
 			}
 		}
 
+		readable
+
 	}
 
 
-let promiseMap = (src :readable<'a>, mapper : 'a => Promise.t<'b>) :readable<'b> => {
-	(sig :signal<'b>) => {
+let makeAsyncPromised = (src :readable<'a>, mapper : 'a => Promise.t<'b>) :readable<'b> => {
+	let readable = (sig :signal<'b>) => {
 		switch sig {
 			| Pull(cb) => src(Pull(payload =>
 				switch payload {
@@ -63,9 +67,10 @@ let promiseMap = (src :readable<'a>, mapper : 'a => Promise.t<'b>) :readable<'b>
 					}
 				))
 			| Abort => src(Abort)
-			}
-			()
 		}
 	}
+
+	readable
+}
 
 

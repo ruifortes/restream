@@ -26,7 +26,7 @@ let fromIterable = (iterable: _iterable<'a>) :ReStream_Source.readable<'a> => {
 	let iterator = _getIterator(iterable)
 	let done = ref(false)
 
-	(sig :ReStream_Source.signal<'a>) => switch sig {
+	let readable = (sig :ReStream_Source.signal<'a>) => switch sig {
 		| Pull(cb) when done.contents => cb(End)
 		| Pull(cb) => {
 				iterator()
@@ -49,5 +49,7 @@ let fromIterable = (iterable: _iterable<'a>) :ReStream_Source.readable<'a> => {
 				done := true
 			}
 		}
+
+		readable
 		
 	}

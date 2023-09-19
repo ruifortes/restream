@@ -24,7 +24,7 @@ let fromArray = (arr :array<'a>) :readable<'a> => {
 	let count = Array.length(arr)
 	let currIndex = ref(0)
 
-	(sig :signal<'a>) => {
+	let readable = (sig :signal<'a>) => {
 		let i = currIndex.contents
 		switch sig {
 			| Pull(cb) when i < count => {
@@ -39,13 +39,17 @@ let fromArray = (arr :array<'a>) :readable<'a> => {
 			| Abort => currIndex := count
 			}
 		}
-		-> ignore
+		
+		readable
 
 	}
 
 let error = (err :string) => {
-	(sig :signal<'a>) => switch sig {
+	
+	let readable = (sig :signal<'a>) => switch sig {
 		| Pull(cb) => cb(Error(err))
 		| Abort => ()
 		}
-	}
+
+	readable
+}

@@ -117,7 +117,7 @@ let make = (src: readable<'a>, ~keepOrder = true, fn: ('a, 'b => unit) => unit, 
 
 	}
 
-	(sig :signal<'b>) => {
+	let readable = (sig :signal<'b>) => {
 		switch sig {
 			| Pull(cb) => {
 					pendingCallback := Some(cb)
@@ -128,7 +128,8 @@ let make = (src: readable<'a>, ~keepOrder = true, fn: ('a, 'b => unit) => unit, 
 					src(Abort)
 				}
 			}
-
 	}
+
+	readable
 
 }
