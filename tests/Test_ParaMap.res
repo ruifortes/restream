@@ -22,9 +22,9 @@ testAsync("paramap, async source, keepOrder=false, parallel = 10", ~timeout=1000
 	Test_Utils.createAsyncTestSource(testData_A)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = false, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			switch delays[ReStream_Utils.incrementRef(i)] {
-				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| Some(delay) => setTimeout(() => cb(newValue), delay) -> ignore
 				| None => ()
 			}
 	}, 10)
@@ -32,7 +32,7 @@ testAsync("paramap, async source, keepOrder=false, parallel = 10", ~timeout=1000
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [1, 4, 3, 2, 6, 7, 5] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [1, 4, 3, 2, 6, 7, 5] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -54,9 +54,9 @@ testAsync("paramap, async source, keepOrder=false, parallel = 1", ~timeout=10000
 	Test_Utils.createAsyncTestSource(testData_A)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = false, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			switch delays[ReStream_Utils.incrementRef(i)] {
-				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| Some(delay) => setTimeout(() => cb(newValue), delay) -> ignore
 				| None => ()
 			}
 	}, 1)
@@ -64,7 +64,7 @@ testAsync("paramap, async source, keepOrder=false, parallel = 1", ~timeout=10000
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -86,9 +86,9 @@ testAsync("paramap, async source, keepOrder=true, parallel = 10", ~timeout=10000
 	Test_Utils.createAsyncTestSource(testData_A)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			switch delays[ReStream_Utils.incrementRef(i)] {
-				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| Some(delay) => setTimeout(() => cb(newValue), delay) -> ignore
 				| None => ()
 			}
 	}, 10)
@@ -96,7 +96,7 @@ testAsync("paramap, async source, keepOrder=true, parallel = 10", ~timeout=10000
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -118,9 +118,9 @@ testAsync("paramap, sync source, keepOrder=false, parallel = 10", (done) => {
 	S.fromArray([1, 2, 3, 4, 5, 6, 7])
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = false, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			switch delays[ReStream_Utils.incrementRef(i)] {
-				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| Some(delay) => setTimeout(() => cb(newValue), delay) -> ignore
 				| None => ()
 			}
 	}, 10)
@@ -128,7 +128,7 @@ testAsync("paramap, sync source, keepOrder=false, parallel = 10", (done) => {
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [6, 7, 4, 3, 1, 2, 5] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [6, 7, 4, 3, 1, 2, 5] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -150,16 +150,16 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 10", (done) => {
 	S.fromArray([1, 2, 3, 4, 5, 6, 7])
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			switch delays[ReStream_Utils.incrementRef(i)] {
-				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| Some(delay) => setTimeout(() => cb(newValue), delay) -> ignore
 				| None => ()
 			}
 	}, 10)
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -181,16 +181,16 @@ testAsync("paramap, sync source, keepOrder=true, parallel = 1", (done) => {
 	S.fromArray([1, 2, 3, 4, 5, 6, 7])
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			switch delays[ReStream_Utils.incrementRef(i)] {
-				| Some(delay) => Js.Global.setTimeout(() => cb(newValue), delay) -> ignore
+				| Some(delay) => setTimeout(() => cb(newValue), delay) -> ignore
 				| None => ()
 			}
 	}, 1)
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -210,13 +210,13 @@ testAsync("paramap, sync source, immediate response, keepOrder=false", (done) =>
 	S.fromArray([1, 2, 3, 4, 5, 6, 7])
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.paraMap(~keepOrder = true, (val, cb) => {
-			let newValue = "#" ++ Js.Int.toString(val)
+			let newValue = "#" ++ Int.toString(val)
 			cb(newValue)
 	}, 10)
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
-					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()

@@ -1,7 +1,3 @@
-// [Apply `-bs-g` flag via environment variable · Issue #3716 · rescript-lang/rescript-compiler](https://github.com/rescript-lang/rescript-compiler/issues/3716)
-// [Is Js.Promise.then_ curried? - General - ReScript Forum](https://forum.rescript-lang.org/t/is-js-promise-then-curried/1040)
-//	let url = "https://68439570-899d-4b5d-a69f-baf0033326c9.mock.pstmn.io/test/text/"
-
 open Test
 
 module S = ReStream
@@ -10,7 +6,7 @@ let testSourceData1 = ["A", "B", "C", "D", "E"]
 
 let testResultData1 = testSourceData1
 	-> Belt.Array.map(s => {
-			Belt.Array.range(1, 4) -> Belt.Array.map(v => "#" ++ s ++ Js.Int.toString(v))
+			Belt.Array.range(1, 4) -> Belt.Array.map(v => "#" ++ s ++ Int.toString(v))
 		})
 	-> Belt.Array.concatMany
 
@@ -25,7 +21,7 @@ testAsync("mix, async source, parallel = 10", ~timeout=10000, (done) => {
 			let source = Belt.Array.range(1, 4)
 			-> S.fromArray
 			-> S.asyncMap((v, cb) => {
-					let newValue = "#" ++ s ++ Js.Int.toString(v)
+					let newValue = "#" ++ s ++ Int.toString(v)
 					newValue -> Test_Utils.rndDelay(~min=100, ~max=100, cb)
 				})
 
@@ -58,7 +54,7 @@ testAsync("mix, sync source, parallel = 10", ~timeout=10000, (done) => {
 			Belt.Array.range(1, 4)
 			-> S.fromArray
 			-> S.map(v => {
-					"#" ++ s ++ Js.Int.toString(v)
+					"#" ++ s ++ Int.toString(v)
 				})
 		})
 	-> S.mix(~parallel = 10)
@@ -86,7 +82,7 @@ testAsync("mix, parallel = 1", ~timeout=10000, (done) => {
 			let source = Belt.Array.range(1, 4)
 			-> S.fromArray
 			-> S.asyncMap((v, cb) => {
-					let newValue = "#" ++ s ++ Js.Int.toString(v)
+					let newValue = "#" ++ s ++ Int.toString(v)
 					newValue -> Test_Utils.rndDelay(~min=100, ~max=100, cb)
 				})
 
@@ -115,7 +111,7 @@ testAsync("flatten (mix with parallel = 1), sync sources", (done) => {
 	S.fromArray(["A", "B", "C"])
 	-> S.map(s => 
 			S.fromArray([1, 2, 3])
-			-> S.map(n => "#" ++ s ++ Js.Int.toString(n))
+			-> S.map(n => "#" ++ s ++ Int.toString(n))
 		)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.flatten

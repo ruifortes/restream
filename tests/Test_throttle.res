@@ -40,7 +40,7 @@ testAsync("throttle", ~timeout=15000, (done) => {
 
 // S.fromArray(Belt.Array.range(1, 10))
 // -> S.asyncMap((v, cb) => {
-// 		let newValue = "#" ++ Js.Int.toString(v)
+// 		let newValue = "#" ++ Int.toString(v)
 // 		newValue -> Test_Utils.rndDelay(~min=100, ~max=1000, cb)
 // 	})
 // -> S.debounce(500)
@@ -54,7 +54,7 @@ testAsync("throttle", ~timeout=15000, (done) => {
 
 // S.fromArray(Belt.Array.range(1, 10))
 // -> S.asyncMap((v, cb) => {
-// 		let newValue = "#" ++ Js.Int.toString(v)
+// 		let newValue = "#" ++ Int.toString(v)
 // 		newValue -> Test_Utils.rndDelay(~min=500, ~max=1000, cb)
 // 	})
 // -> S.asyncMap((v, cb) => {

@@ -9,12 +9,12 @@ testAsync("abortable, not aborting", (done) => {
 
 	let (abortable, abort) = S.abortable()
 
-	// Js.Global.setTimeout(abort, 200) -> ignore
+	// Global.setTimeout(abort, 200) -> ignore
 
 	S.fromArray(arr)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.asyncMap((v, cb) => {
-			("#" ++ Js.Int.toString(v)) -> Test_Utils.rndDelay(~min=50, ~max=50, cb)
+			("#" ++ Int.toString(v)) -> Test_Utils.rndDelay(~min=50, ~max=50, cb)
 		})
 	-> abortable
 	// -> S.log
@@ -38,12 +38,12 @@ testAsync("abortable, aborting", (done) => {
 
 	let (abortable, abort) = S.abortable()
 
-	Js.Global.setTimeout(abort, 200) -> ignore
+	setTimeout(abort, 200) -> ignore
 
 	S.fromArray(arr)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.asyncMap((v, cb) => {
-			("#" ++ Js.Int.toString(v)) -> Test_Utils.rndDelay(~min=50, ~max=50, cb)
+			("#" ++ Int.toString(v)) -> Test_Utils.rndDelay(~min=50, ~max=50, cb)
 		})
 	-> abortable
 	// -> S.log

@@ -28,16 +28,16 @@
 	
 // 	})
 
-// 	// let _ = Js.Global.setTimeout(next, 1000)
-// 	// let _ = Js.Global.setTimeout(next, 3000)
-// 	// let _ = Js.Global.setTimeout(next, 4000)
+// 	// let _ = setTimeout(next, 1000)
+// 	// let _ = setTimeout(next, 3000)
+// 	// let _ = setTimeout(next, 4000)
 
 // 	let rec getNext = () => {
 // 		if (next()) {
 // 			Js.log("XXXXXXX")
 // 				() -> Test_Utils.rndDelay(~min=50, ~max=100, getNext)
 // 		}
-// 		// Js.Global.setTimeout(getNext, 4000)
+// 		// setTimeout(getNext, 4000)
 // 	}
 
 // 	() -> Test_Utils.rndDelay(~min=50, ~max=100, getNext)

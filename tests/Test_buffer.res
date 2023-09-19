@@ -14,10 +14,10 @@ testAsync("buffer", (done) => {
 	let arr = Belt.Array.range(1, 10)
 
 	let result = [
-		Belt.Array.range(1, 3) -> Belt.Array.map(v => "#" ++ Js.Int.toString(v)),
-		Belt.Array.range(4, 6) -> Belt.Array.map(v => "#" ++ Js.Int.toString(v)),
-		Belt.Array.range(7, 9) -> Belt.Array.map(v => "#" ++ Js.Int.toString(v)),
-		Belt.Array.range(10, 10) -> Belt.Array.map(v => "#" ++ Js.Int.toString(v)),
+		Belt.Array.range(1, 3) -> Belt.Array.map(v => "#" ++ Int.toString(v)),
+		Belt.Array.range(4, 6) -> Belt.Array.map(v => "#" ++ Int.toString(v)),
+		Belt.Array.range(7, 9) -> Belt.Array.map(v => "#" ++ Int.toString(v)),
+		Belt.Array.range(10, 10) -> Belt.Array.map(v => "#" ++ Int.toString(v)),
 		]
 
 	let fail1 = ref(false)
@@ -25,7 +25,7 @@ testAsync("buffer", (done) => {
 	S.fromArray(arr)
 	-> ReStream_Utils.checkStep(() => fail1 := true)
 	-> S.asyncMap((v, cb) => {
-			let newValue = "#" ++ Js.Int.toString(v)
+			let newValue = "#" ++ Int.toString(v)
 			newValue -> Test_Utils.rndDelay(~min=50, ~max=50, cb)
 		})
 	-> S.buffer(src2)

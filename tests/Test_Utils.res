@@ -4,11 +4,11 @@ let rndDelay = (~min=0, ~max=500, ~delays=? , val: 'a, cb: 'a => unit) :unit => 
 	let delay = Js.Math.random_int(min, max)
 	switch delays {
 		| Some(delaysArray) => {
-				delaysArray -> Js.Array2.push(delay) -> ignore
+				delaysArray -> Array.push(delay) -> ignore
 			}
 		| None => ()
 	}
-	let _ = Js.Global.setTimeout(() => val -> cb, delay)
+	let _ = setTimeout(() => val -> cb, delay)
 }
 
 let asyncIteratorFromArray = %raw(`
@@ -46,9 +46,9 @@ let testReadableWebStream = %raw(`
 // let actionable_testSource = (actionable: S.actionable<'a>, steps: array<('a, int)>) => {
 
 // 	let rec step = () => {
-// 		switch steps -> Js.Array2.shift {
+// 		switch steps -> Array.shift {
 // 			| Some(v, d) => {
-// 					let _ = Js.Global.setTimeout(() => {
+// 					let _ = setTimeout(() => {
 // 						actionable(Push(v))
 // 						step()
 // 					}, d)

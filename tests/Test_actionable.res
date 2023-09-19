@@ -9,9 +9,9 @@ let testData = Belt.Array.zip(testValues, testDelays)
 let _act = (actionable: S.actionable<'a>, steps: array<('a, int)>) => {
 
 	let rec step = () => {
-		switch steps -> Js.Array2.shift {
+		switch steps -> Array.shift {
 			| Some(v, d) => {
-					let _ = Js.Global.setTimeout(() => {
+					let _ = setTimeout(() => {
 						actionable(Push(v))
 						step()
 					}, d)

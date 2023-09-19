@@ -108,7 +108,7 @@ testAsync("combineLatest5", (done) => {
 	-> S.collect(res => {
 		switch res {
 			| Ok(_) => {
-					// let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					// let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					// Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					// Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()
@@ -130,7 +130,7 @@ testAsync("combineLatest6", (done) => {
 	-> S.collect(res => {
 		switch res {
 			| Ok(_) => {
-					// let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Js.Int.toString(n))
+					// let expected = [1, 2, 3, 4, 5, 6, 7] -> Belt.Array.map(n => "#" ++ Int.toString(n))
 					// Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
 					// Assert.arrayDeepEqual(~message="results match", arr, expected)
 					done()

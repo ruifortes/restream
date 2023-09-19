@@ -4,7 +4,7 @@ module S = ReStream
 testAsync("map", (done) => {
 
 	S.fromArray([1, 2, 3, 4])
-	-> S.map((v) => "#" ++ Js.Int.toString(v) )
+	-> S.map((v) => "#" ++ Int.toString(v) )
 	-> S.collect(res => {
 		switch res {
 			| Ok(arr) => {
