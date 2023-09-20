@@ -1,7 +1,6 @@
 open Test
 module S = ReStream
 
-
 testAsync("promiseMap", (done) => {
 
 	S.fromArray([1, 2, 3, 4])

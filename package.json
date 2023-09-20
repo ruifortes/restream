@@ -1,5 +1,7 @@
 {
-	"name": "toy-stream",
+	"name": "@rsf/toy-stream",
+	"version": "1.0.1",
+	"description": "minimal pull streams in rescript",
 	"scripts": {
     "build": "rescript",
     "clean": "rescript clean",

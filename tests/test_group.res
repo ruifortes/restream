@@ -1,5 +1,4 @@
 open Test
-
 module S = ReStream
 
 testAsync("group", (done) => {

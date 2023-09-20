@@ -22,7 +22,6 @@ let testData_A = [
 testAsync("throttle", ~timeout=15000, (done) => {
 
 	Test_Utils.createAsyncTestSource(testData_A)
-	// S.fromArray(Belt.Array.range(1, 10))
 	-> S.throttle(300)
 	-> S.log
 	-> S.collect(res => {
@@ -36,40 +35,3 @@ testAsync("throttle", ~timeout=15000, (done) => {
 		})
 
 })
-
-
-// S.fromArray(Belt.Array.range(1, 10))
-// -> S.asyncMap((v, cb) => {
-// 		let newValue = "#" ++ Int.toString(v)
-// 		newValue -> Test_Utils.rndDelay(~min=100, ~max=1000, cb)
-// 	})
-// -> S.debounce(500)
-// -> S.collect(res => {
-// 	switch res {
-// 		| Ok(arr) => Js.log(arr)
-// 		| Error(_) => ()
-// 		}
-// })
-
-
-// S.fromArray(Belt.Array.range(1, 10))
-// -> S.asyncMap((v, cb) => {
-// 		let newValue = "#" ++ Int.toString(v)
-// 		newValue -> Test_Utils.rndDelay(~min=500, ~max=1000, cb)
-// 	})
-// -> S.asyncMap((v, cb) => {
-// 		let newValue = "#" ++ v
-// 		newValue -> Test_Utils.rndDelay(~min=50, ~max=500, cb)
-// 	})
-// -> S.log
-// -> S.collect(res => {
-// 	switch res {
-// 		| Ok(arr) => {
-// 			Js.log(arr)
-// 				// Assert.boolEqual(~message="must not call Pull before receiving payload", fail1.contents, false)
-// 				// Assert.arraySameItems(~message="result array has same items", arr, result)
-
-// 			}
-// 		| Error(_) => ()
-// 		}
-// 	})

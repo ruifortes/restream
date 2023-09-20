@@ -13,10 +13,6 @@ let observable = ReStream_Observable.make
 
 let fromArray = ReStream_Source.fromArray
 
-// let opendir = ReStream_Source_FS.opendir
-// let fetch = ReStream_Fetch.make
-
-// Convert
 let fromIterable = ReStream_Source_FromIterable.fromIterable
 let fromWebStreamReadable = ReStream_WebStream.fromWebStreamReadable
 let toWebStreamReadable = ReStream_WebStream.toWebStreamReadable
@@ -24,23 +20,34 @@ let toWebStreamReadable = ReStream_WebStream.toWebStreamReadable
 let abortable = ReStream_Through.abortable
 
 let log = ReStream_Through.log
-let take = ReStream_Through.take
 let tap = ReStream_Through.tap
+let take = ReStream_Through.take
 // let through = ReStream_Through.through
 let debounce = ReStream_Debounce.make
 let throttle = ReStream_Throttle.make
 let timeout = ReStream_Through.timeout
 
 
-let asyncFilter = ReStream_Filter.makeAsync
+let map = ReStream_Transform_Map.makeSync
+let asyncMap = ReStream_Transform_Map.makeAsync
+let promiseMap = ReStream_Transform_Map.makeAsyncPromised
+
+let flatMap = ReStream_FlatMap.makeSync
+let asyncFlatMap = ReStream_FlatMap.makeAsync
+
+let paraMap = ReStream_Through_ParaMap.make
+
 let filter = ReStream_Filter.makeSync
+let asyncFilter = ReStream_Filter.makeAsync
 
-let asyncFilterMap = ReStream_Filter.makeAsyncFilterMap
 let filterMap = ReStream_Filter.makeSyncFilterMap
+let asyncFilterMap = ReStream_Filter.makeAsyncFilterMap
 
-// let group = ReStream_Through.group
 let group = ReStream_Group.make
 let buffer = ReStream_Through_Buffer.make
+
+let mix = ReStream_Through_Mix.make
+let flatten = (source :t<t<'a>>) => source -> ReStream_Through_Mix.make(~parallel = 1)
 
 let combineLatest2 = ReStream_Through_Combine.make2
 let combineLatest3 = ReStream_Through_Combine.make3
@@ -55,17 +62,6 @@ let zip4 = (src1, src2, src3, src4) => ReStream_Through_Combine.make4(~mode = Zi
 let zip5 = (src1, src2, src3, src4, src5) => ReStream_Through_Combine.make5(~mode = Zip, src1, src2, src3, src4, src5)
 let zip6 = (src1, src2, src3, src4, src5, sr6) => ReStream_Through_Combine.make6(~mode = Zip, src1, src2, src3, src4, src5, sr6)
 
-let map = ReStream_Transform_Map.makeSync
-let asyncMap = ReStream_Transform_Map.makeAsync
-let promiseMap = ReStream_Transform_Map.makeAsyncPromised
-
-let flatMap = ReStream_FlatMap.makeSync
-let asyncFlatMap = ReStream_FlatMap.makeAsync
-
-let paraMap = ReStream_Through_ParaMap.make
-
-let mix = ReStream_Through_Mix.make
-let flatten = (source :t<t<'a>>) => source -> ReStream_Through_Mix.make(~parallel = 1)
 
 let drain = ReStream_Sink.drain
 let abortableDrain = ReStream_Sink.abortableDrain

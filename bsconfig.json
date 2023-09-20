@@ -1,5 +1,5 @@
 {
-	"name": "toy-stream",
+	"name": "@rsf/toy-stream",
 	"sources": [
 		{"dir": "src", "subdirs" : true},
     {"dir": "tests", "subdirs": true, "type": "dev" }

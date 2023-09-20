@@ -1,9 +1,7 @@
 open Test
-
 module S = ReStream
 
 testAsync("flatMap", (done) => {
-
 
 	S.fromArray([1, 2, 3])
 	-> S.flatMap(v => {
@@ -22,8 +20,8 @@ testAsync("flatMap", (done) => {
 
 })
 
-testAsync("asyncFlatMap", (done) => {
 
+testAsync("asyncFlatMap", (done) => {
 
 	S.fromArray([1, 2, 3])
 	-> S.asyncFlatMap((v, cb) => {

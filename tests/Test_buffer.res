@@ -1,9 +1,7 @@
 open Test
-
 module S = ReStream
 
 testAsync("buffer", (done) => {
-
 
 	let src2 = Belt.Array.make(10, ())
 		-> S.fromArray
