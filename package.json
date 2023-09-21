@@ -1,6 +1,6 @@
 {
 	"name": "@rsf/restream",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "minimal pull streams in rescript",
 	"repository": {
 		"type": "git",

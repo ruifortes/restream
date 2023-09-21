@@ -41,9 +41,9 @@ S.fromArray([1, 2, 3, 4])
 
 ## API
 
-[fromArray](tests/Test_sources.res#L8)  
-[fromIterable](tests/Test_sources.res#L27)  
-[fromWebStreamReadable](tests/Test_sources.res#L89)  
+[fromArray](tests/Test_Sources.res#L8)  
+[fromIterable](tests/Test_Sources.res#L27)  
+[fromWebStreamReadable](tests/Test_Sources.res#L89)  
 
 [actionable](tests/Test_actionable.res#L26)  
 [observable](tests/Test_observable.res)  
@@ -84,4 +84,4 @@ S.fromArray([1, 2, 3, 4])
 [drainToPromise](src/ReStream_Sink.res#35)  
 [collect](src/ReStream_Sink.res#47)  
 [collectToPromise](src/ReStream_Sink.res#61)  
-[toWebStreamReadable](tests/Test_sources.res#L71)  
+[toWebStreamReadable](tests/Test_Sources.res#L71)  
