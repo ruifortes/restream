@@ -1,8 +1,8 @@
 {
-	"name": "@rsf/toy-stream",
+	"name": "@rsf/restream",
 	"sources": [
 		{"dir": "src", "subdirs" : true},
-    {"dir": "tests", "subdirs": true, "type": "dev" }
+		{"dir": "tests", "subdirs": true, "type": "dev" }
 	],
 	"package-specs": {
 		"module": "es6",
@@ -15,8 +15,8 @@
 		"rescript-test"
 	],
 	"bsc-flags": ["-open RescriptCore"],
-  "warnings": {
-    "number": "-33-44-45-102-26-27",
-    "error": "+5"
-  }
+	"warnings": {
+		"number": "-33-44-45-102-26-27",
+		"error": "+5"
+	}
 }

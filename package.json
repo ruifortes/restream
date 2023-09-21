@@ -1,7 +1,11 @@
 {
-	"name": "@rsf/toy-stream",
-	"version": "1.0.1",
+	"name": "@rsf/restream",
+	"version": "1.0.3",
 	"description": "minimal pull streams in rescript",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ruifortes/restream"
+	},
 	"scripts": {
     "build": "rescript",
     "clean": "rescript clean",

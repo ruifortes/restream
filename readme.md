@@ -2,21 +2,21 @@
 
 Minimal pull-stream library written in [Rescript](https://rescript-lang.org/)
 
-[![npm](https://img.shields.io/npm/v/@rsf/toy-stream.svg)](https://npmjs.org/@rsf/toy-stream)
+[![npm](https://img.shields.io/npm/v/@rsf/restream.svg)](https://npmjs.org/@rsf/restream)
 
 ## Installation
 
 ```shell
-npm install @rsf/toy-stream
+npm install @rsf/restream
 ```
 or
 ```shell
-yarn add @rsf/toy-stream
+yarn add @rsf/restream
 ```
 Then add rescript-nodejs to `bsconfig.json`:
 ```
   "bs-dependencies": [
-    "@rsf/toy-stream"
+    "@rsf/restream"
   ],
 ```
 
